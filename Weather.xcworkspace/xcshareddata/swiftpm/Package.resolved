@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "mockingbird",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/birdrides/mockingbird",
+      "state" : {
+        "branch" : "master",
+        "revision" : "20a520f396a17f3e83d25237e3a24fe2ddbda2f3"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "revision" : "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
+        "version" : "0.1.3"
+      }
+    },
+    {
+      "identity" : "swiftuirefresh",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/timbersoftware/SwiftUIRefresh.git",
+      "state" : {
+        "revision" : "fa8fac7b5eb5c729983a8bef65f094b5e0d12014",
+        "version" : "0.0.3"
+      }
+    }
+  ],
+  "version" : 2
+}

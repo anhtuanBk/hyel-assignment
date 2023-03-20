@@ -13,8 +13,16 @@ public class AppState {
         AppShowingManagerImpl()
     }()
     
+    private lazy var locationManagerInstance: LocationManager = {
+        LocationManager()
+    }()
+    
     // Manager
     func appShowingManager() -> AppShowingManager {
         return appShowingInstance
+    }
+    
+    func locationManager() -> LocationManager {
+        return locationManagerInstance
     }
 }

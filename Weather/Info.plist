@@ -50,5 +50,14 @@
 	</array>
 	<key>apiEndpointUrl</key>
 	<string>${API_ENDPOINT_URL}</string>
+    
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>The app needs to know current location for Weather Forecasting</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>The app needs to know current location for Weather Forecasting</string>
+
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>The app needs to know current location for Weather Forecasting</string>
 </dict>
 </plist>

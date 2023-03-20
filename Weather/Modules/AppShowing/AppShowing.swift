@@ -15,7 +15,7 @@ struct AppShowing: View {
         NavigationView {
             RouterView(
                 router: router,
-                root: .splash
+                root: .dailyWeather
             )
         }
         .environment(\.router, router)

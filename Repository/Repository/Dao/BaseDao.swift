@@ -19,13 +19,13 @@ public class BaseDao<T: Codable> {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(items) {
             userDefaults.setValue(encoded, forKey: key)
-            userDefaults.setValue(Date(), forKey: "key.lastUpdated")
+            userDefaults.setValue(Date(), forKey: "\(key).lastUpdated")
         }
     }
     
     public func getItems(key: String, now: Date = Date()) -> [T]? {
         if let data = userDefaults.data(forKey: key) {
-            if let lastUpdated = userDefaults.object(forKey: "key.lastUpdated") as? Date, let expiredTime = expiredTimeInMinute {
+            if let lastUpdated = userDefaults.object(forKey: "\(key).lastUpdated") as? Date, let expiredTime = expiredTimeInMinute {
                 if let minute = Calendar.current.dateComponents([.minute], from: lastUpdated, to: now).minute, minute > expiredTime {
                     return nil
                 }
@@ -40,6 +40,19 @@ public class BaseDao<T: Codable> {
     
     public func clearCache(key: String) {
         userDefaults.removeObject(forKey: key)
-        userDefaults.removeObject(forKey: "key.lastUpdated")
+        userDefaults.removeObject(forKey: "\(key).lastUpdated")
+    }
+    
+    public func clearCache(keyPrefix: String) {
+        userDefaults
+            .dictionaryRepresentation()
+            .keys
+            .filter { key in
+                key.hasPrefix(keyPrefix)
+            }
+            .forEach { key in
+                userDefaults.removeObject(forKey: key)
+                userDefaults.removeObject(forKey: "\(key).lastUpdated")
+            }
     }
 }

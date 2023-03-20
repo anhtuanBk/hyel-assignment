@@ -39,6 +39,21 @@ public class NavigationRouter {
         return $route
     }
     
+    @discardableResult
+    public func setRoot(link: NavigationRouteLink, meta: [String: Any] = [:]) -> ResolvedRoute? {
+        guard let $route = resolve(link: link) else {
+            return nil
+        }
+        
+        $route.meta = meta
+        
+        routeStack.removeAll()
+        routeStack.append($route)
+        
+        didUpdateRouteStack()
+        return $route
+    }
+    
     public func pop(native: Bool = true) {
         if native {
             routeStack.last?.nativePop()

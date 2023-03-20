@@ -20,6 +20,7 @@ struct SplashScreen: View {
         }
         .onAppear() {
             print("Splash Screen Appear")
+            router.push(link: .dailyWeather)
         }
     }
 }

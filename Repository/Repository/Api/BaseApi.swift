@@ -6,8 +6,6 @@
 
 import Combine
 
-typealias JsonResponse = Dictionary<String, Any>
-
 public class BaseApi {
     private let baseUrl: BaseUrl
     private let urlSession: URLSession
@@ -26,34 +24,38 @@ public class BaseApi {
         .eraseToAnyPublisher()
     }
     
-    func get(path: Endpoints) -> AnyPublisher<JsonResponse, Error> {
-        let url = baseUrl.getUrl(of: path)
+    func get<T:Codable>(path: Endpoints) -> AnyPublisher<T, Error> {
+        let request = baseUrl.getRequest(of: path)
         
         return Deferred  {
             Future { [weak self] promise in
-                guard let self = self else {
-                    promise(.success(JsonResponse()))
+                guard let self else {
+                    promise(.failure(CancellationError()))
                     return
                 }
-                    let task = self.urlSession
-                    .dataTask(with: url) { data, response, error in
-                        if error == nil {
-                            if let httpResponse = response as? HTTPURLResponse {
-                                if httpResponse.statusCode == 200 {
-                                    if let json = try! JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any] {
-                                        promise(.success(json))
-                                        return
-                                    }
-                                } else if httpResponse.statusCode == 401 {
-                                    promise(.failure(UnauthorizedError.tokenExpired))
-                                    return
-                                }
-                            }
-                            promise(.success(JsonResponse()))
-                        } else {
-                            promise(.failure(error!))
+                let task = self.urlSession.dataTask(with: request) {(data , response, error) in
+                    print("got response")
+                    if let error = error as? URLError {
+                        promise(.failure(ApiError.url(error)))
+                    }else if  let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
+                        promise(.failure(ApiError.badResponse(statusCode: response.statusCode)))
+                    }else if let data = data {
+                        let decoder = JSONDecoder()
+                        // Custom date formater
+                        let dateFormater = DateFormatter()
+                        dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+                        decoder.dateDecodingStrategy = .formatted(dateFormater)
+                        do {
+                            let result = try decoder.decode(T.self, from: data)
+                            promise(.success(result))
+                            
+                        }catch {
+                            promise(.failure(ApiError.parsing(error as? DecodingError)))
                         }
+                        
                     }
+                }
+                
                 task.resume()
             }
         }.retry(times: retryTimes, if: { [unowned self] error in

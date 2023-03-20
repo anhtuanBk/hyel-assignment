@@ -9,6 +9,7 @@
 @testable import Mockingbird
 @testable import Repository
 import Combine
+import CoreLocation
 import Foundation
 import Swift
 

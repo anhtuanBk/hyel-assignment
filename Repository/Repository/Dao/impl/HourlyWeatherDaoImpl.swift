@@ -11,7 +11,7 @@ import CoreLocation
 public class HourlyWeatherDaoImpl: BaseDao<Hour>, HourlyWeatherDao {
     private let key = "key.hourlyWeathers"
     
-    public override init(_ userDefaults: UserDefaults = UserDefaults.standard, expiredTimeInMinute: Int? = 30) {
+    public override init(_ userDefaults: UserDefaults = UserDefaults.standard, expiredTimeInMinute: Int? = 5) {
         super.init(userDefaults, expiredTimeInMinute: expiredTimeInMinute)
     }
     

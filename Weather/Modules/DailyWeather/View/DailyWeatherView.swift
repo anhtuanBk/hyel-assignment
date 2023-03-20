@@ -6,10 +6,12 @@ import SwiftUI
 
 struct DailyWeatherView: View {
     @EnvironmentObject private var viewModel: DailyWeatherViewModel
+    @StateObject var locationManager: LocationManager
+    
     @State private var showingSheet = false
-    @StateObject var locationManager = LocationManager()
     @State var selectedDate  = Date()
     @State var loaded = false
+    
     var body: some View {
         ZStack {
             Color.ui.primary
@@ -46,11 +48,15 @@ struct DailyWeatherView: View {
                         .background(Color.ui.secondary)
                         .sheet(isPresented: $showingSheet, content: {
                             NavigationView {
-                                Text("hourly")
+                                HourlyWeatherView(locationManager: locationManager,
+                                                  selectedDate: self.$selectedDate)
+                                    .provideViewModel(create: {
+                                        HourlyWeatherViewModel(UseCases.weatherUseCase())
+                                    })
                                     .navigationTitle(selectedDate.toString())
-                                        .navigationBarItems(trailing: Button("Done",
-                                                                             action: {self.showingSheet.toggle()}))
-                                    }
+                                    .navigationBarItems(trailing: Button("Done",
+                                                                         action: {self.showingSheet.toggle()}))
+                            }
                         })
                     }// VStack
                     .onAppear(perform: {
@@ -76,9 +82,3 @@ struct DailyWeatherView: View {
         }//ZStack
     }//Body
 }//ContentView
-
-struct DailyWeatherView_Previews: PreviewProvider {
-    static var previews: some View {
-        DailyWeatherView()
-    }
-}

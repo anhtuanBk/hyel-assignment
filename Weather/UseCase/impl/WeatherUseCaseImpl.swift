@@ -18,9 +18,9 @@ public class WeatherUseCaseImpl: WeatherUseCase {
         self.weatherRepository = weatherRepository
     }
     
-    public func loadDailyWeather(_ location: CLLocationCoordinate2D) -> Future<[Day], Error> {
+    public func loadDailyWeather(_ lat: Double, _ lon: Double) -> Future<[Day], Error> {
         return Future { [unowned self] promise in
-            self.weatherRepository.fetchDailyWeather(location)
+            self.weatherRepository.fetchDailyWeather(lat, lon)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):
@@ -34,9 +34,9 @@ public class WeatherUseCaseImpl: WeatherUseCase {
         }
     }
     
-    public func loadHourlyWeather(_ location: CLLocationCoordinate2D, date: Date) -> Future<[Hour], Error> {
+    public func loadHourlyWeather(_ lat: Double, _ lon: Double, date: Date) -> Future<[Hour], Error> {
         return Future { [unowned self] promise in
-            self.weatherRepository.fetchHourlyWeather(location, date: date)
+            self.weatherRepository.fetchHourlyWeather(lat, lon, date: date)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .failure(let error):

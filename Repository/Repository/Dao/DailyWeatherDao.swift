@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 public protocol DailyWeatherDao {
-    func getDailyWeathers(_ location: CLLocationCoordinate2D) -> [Day]?
-    func saveDailyWeathers(_ location: CLLocationCoordinate2D, dailyWeathers: [Day])
+    func getDailyWeathers(_ lat: Double, _ lon: Double) -> [Day]?
+    func saveDailyWeathers(_ lat: Double, _ lon: Double, dailyWeathers: [Day])
     func clearDailyWeathers()
 }

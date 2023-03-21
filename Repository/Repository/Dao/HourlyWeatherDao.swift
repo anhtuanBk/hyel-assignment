@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 public protocol HourlyWeatherDao {
-    func getHourlyWeathers(_ location: CLLocationCoordinate2D, date: Date) -> [Hour]?
-    func saveHourlyWeathers(_ location: CLLocationCoordinate2D, date: Date, hourlyWeathers: [Hour])
+    func getHourlyWeathers(_ lat: Double, _ lon: Double, date: Date) -> [Hour]?
+    func saveHourlyWeathers(_ lat: Double, _ lon: Double, date: Date, hourlyWeathers: [Hour])
     func clearHourlyWeathers()
 }

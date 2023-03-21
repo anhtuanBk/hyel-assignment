@@ -21,18 +21,18 @@ public class WeatherRepositoryImpl: WeatherRepository {
         self.hourlyWeatherDao = hourlyWeatherDao
     }
     
-    public func fetchDailyWeather(_ location: CLLocationCoordinate2D) -> Future<[Day], Error> {
+    public func fetchDailyWeather(_ lat: Double, _ lon: Double) -> Future<[Day], Error> {
         return Future { [weak self] promise in
             guard let self = self else {
                 promise(.failure(CancellationError()))
                 return
             }
-            if let cached = self.dailyWeatherDao.getDailyWeathers(location) {
+            if let cached = self.dailyWeatherDao.getDailyWeathers(lat, lon) {
                 promise(.success(cached))
                 return
             }
             
-            self.weatherApi.fetchWeatherDaily(location)
+            self.weatherApi.fetchWeatherDaily(lat, lon)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .finished:
@@ -41,25 +41,25 @@ public class WeatherRepositoryImpl: WeatherRepository {
                         promise(.failure(error))
                     }
                 }, receiveValue: { items in
-                    self.dailyWeatherDao.saveDailyWeathers(location, dailyWeathers: items)
+                    self.dailyWeatherDao.saveDailyWeathers(lat, lon, dailyWeathers: items)
                     promise(.success(items))
                 })
                 .store(in: &self.disposables)
         }
     }
     
-    public func fetchHourlyWeather(_ location: CLLocationCoordinate2D, date: Date) -> Future<[Hour], Error> {
+    public func fetchHourlyWeather(_ lat: Double, _ lon: Double, date: Date) -> Future<[Hour], Error> {
         return Future { [weak self] promise in
             guard let self = self else {
                 promise(.failure(CancellationError()))
                 return
             }
-            if let cached = self.hourlyWeatherDao.getHourlyWeathers(location, date: date) {
+            if let cached = self.hourlyWeatherDao.getHourlyWeathers(lat, lon, date: date) {
                 promise(.success(cached))
                 return
             }
             
-            self.weatherApi.fetchWeatherHourly(location, date: date)
+            self.weatherApi.fetchWeatherHourly(lat, lon, date: date)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .finished:
@@ -68,7 +68,7 @@ public class WeatherRepositoryImpl: WeatherRepository {
                         promise(.failure(error))
                     }
                 }, receiveValue: { items in
-                    self.hourlyWeatherDao.saveHourlyWeathers(location, date: date, hourlyWeathers: items)
+                    self.hourlyWeatherDao.saveHourlyWeathers(lat, lon, date: date, hourlyWeathers: items)
                     promise(.success(items))
                 })
                 .store(in: &self.disposables)

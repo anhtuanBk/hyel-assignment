@@ -30,6 +30,9 @@
 		BA8711DB29C78D7200DCF676 /* HourlyWeatherDaoImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8711DA29C78D7200DCF676 /* HourlyWeatherDaoImpl.swift */; };
 		BA8711DD29C78E6900DCF676 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8711DC29C78E6900DCF676 /* WeatherRepository.swift */; };
 		BA8711DF29C7900300DCF676 /* WeatherRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8711DE29C7900300DCF676 /* WeatherRepositoryImpl.swift */; };
+		BA98CA1C29C965A9007E136F /* WeatherApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA98CA1B29C965A9007E136F /* WeatherApiTests.swift */; };
+		BA98CA1E29C965B2007E136F /* DailyWeatherDaoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA98CA1D29C965B1007E136F /* DailyWeatherDaoTests.swift */; };
+		BA98CA2029C965BA007E136F /* WeatherRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA98CA1F29C965BA007E136F /* WeatherRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,9 @@
 		BA8711DA29C78D7200DCF676 /* HourlyWeatherDaoImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherDaoImpl.swift; sourceTree = "<group>"; };
 		BA8711DC29C78E6900DCF676 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		BA8711DE29C7900300DCF676 /* WeatherRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryImpl.swift; sourceTree = "<group>"; };
+		BA98CA1B29C965A9007E136F /* WeatherApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherApiTests.swift; sourceTree = "<group>"; };
+		BA98CA1D29C965B1007E136F /* DailyWeatherDaoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyWeatherDaoTests.swift; sourceTree = "<group>"; };
+		BA98CA1F29C965BA007E136F /* WeatherRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 		A67945A127A133B100ADF5FD /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				BA98CA1B29C965A9007E136F /* WeatherApiTests.swift */,
 				A67945A227A133B100ADF5FD /* MockURLProtocol.swift */,
 			);
 			path = Api;
@@ -101,6 +108,7 @@
 		A67945A427A133B100ADF5FD /* Dao */ = {
 			isa = PBXGroup;
 			children = (
+				BA98CA1D29C965B1007E136F /* DailyWeatherDaoTests.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -108,6 +116,7 @@
 		A67945A627A133B100ADF5FD /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				BA98CA1F29C965BA007E136F /* WeatherRepositoryTests.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -425,6 +434,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A67945A827A133B100ADF5FD /* MockURLProtocol.swift in Sources */,
+				BA98CA1E29C965B2007E136F /* DailyWeatherDaoTests.swift in Sources */,
+				BA98CA2029C965BA007E136F /* WeatherRepositoryTests.swift in Sources */,
+				BA98CA1C29C965A9007E136F /* WeatherApiTests.swift in Sources */,
 				A6D08AA6279CEFC400D35698 /* RepositoryTests.swift in Sources */,
 				41ED5CDE35B186B5F2202AA2 /* RepositoryTests-RepositoryMocks.generated.swift in Sources */,
 			);

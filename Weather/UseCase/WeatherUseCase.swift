@@ -11,6 +11,6 @@ import Combine
 import Repository
 
 public protocol WeatherUseCase {
-    func loadDailyWeather(_ location: CLLocationCoordinate2D) -> Future<[Day], Error>
-    func loadHourlyWeather(_ location: CLLocationCoordinate2D, date: Date) -> Future<[Hour], Error>
+    func loadDailyWeather(_ lat: Double, _ lon: Double) -> Future<[Day], Error>
+    func loadHourlyWeather(_ lat: Double, _ lon: Double, date: Date) -> Future<[Hour], Error>
 }

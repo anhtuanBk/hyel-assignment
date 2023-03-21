@@ -15,13 +15,13 @@ public class DailyWeatherDaoImpl: BaseDao<Day>, DailyWeatherDao {
         super.init(userDefaults, expiredTimeInMinute: expiredTimeInMinute)
     }
     
-    public func getDailyWeathers(_ location: CLLocationCoordinate2D) -> [Day]? {
-        let dynamicKey = "\(key).\(String(describing: location))"
+    public func getDailyWeathers(_ lat: Double, _ lon: Double) -> [Day]? {
+        let dynamicKey = "\(key).\(lat).\(lon)"
         return getItems(key: dynamicKey)
     }
     
-    public func saveDailyWeathers(_ location: CLLocationCoordinate2D, dailyWeathers: [Day]) {
-        let dynamicKey = "\(key).\(String(describing: location))"
+    public func saveDailyWeathers(_ lat: Double, _ lon: Double, dailyWeathers: [Day]) {
+        let dynamicKey = "\(key).\(lat).\(lon)"
         cacheItems(items: dailyWeathers, key: dynamicKey)
     }
     

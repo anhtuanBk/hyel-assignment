@@ -15,13 +15,13 @@ public class HourlyWeatherDaoImpl: BaseDao<Hour>, HourlyWeatherDao {
         super.init(userDefaults, expiredTimeInMinute: expiredTimeInMinute)
     }
     
-    public func getHourlyWeathers(_ location: CLLocationCoordinate2D, date: Date) -> [Hour]? {
-        let dynamicKey = "\(key).\(String(describing: location)).\(date.timeIntervalSince1970)"
+    public func getHourlyWeathers(_ lat: Double, _ lon: Double, date: Date) -> [Hour]? {
+        let dynamicKey = "\(key).\(lat).\(lon).\(date.timeIntervalSince1970)"
         return getItems(key: dynamicKey)
     }
     
-    public func saveHourlyWeathers(_ location: CLLocationCoordinate2D, date: Date, hourlyWeathers: [Hour]) {
-        let dynamicKey = "\(key).\(String(describing: location)).\(date.timeIntervalSince1970)"
+    public func saveHourlyWeathers(_ lat: Double, _ lon: Double, date: Date, hourlyWeathers: [Hour]) {
+        let dynamicKey = "\(key).\(lat).\(lon).\(date.timeIntervalSince1970)"
         cacheItems(items: hourlyWeathers, key: dynamicKey)
     }
     

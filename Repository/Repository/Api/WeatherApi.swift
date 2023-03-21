@@ -10,6 +10,6 @@ import Combine
 import CoreLocation
 
 public protocol WeatherApi {
-    func fetchWeatherDaily(_ location: CLLocationCoordinate2D) -> AnyPublisher<[Day], Error>
-    func fetchWeatherHourly(_ location: CLLocationCoordinate2D, date: Date) -> AnyPublisher<[Hour], Error>
+    func fetchWeatherDaily(_ lat: Double, _ lon: Double) -> AnyPublisher<[Day], Error>
+    func fetchWeatherHourly(_ lat: Double, _ lon: Double, date: Date) -> AnyPublisher<[Hour], Error>
 }

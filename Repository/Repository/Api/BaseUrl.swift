@@ -8,8 +8,8 @@ import Foundation
 import CoreLocation
 
 public enum Endpoints {
-    case fetchWeatherDaily(location: CLLocationCoordinate2D)
-    case fetchWeatherHourly(location: CLLocationCoordinate2D, date: Date)
+    case fetchWeatherDaily(_ lat: Double, _ lon: Double)
+    case fetchWeatherHourly(_ lat: Double, _ lon: Double, _ date: Date)
 }
 
 public class BaseUrl {
@@ -27,12 +27,12 @@ public class BaseUrl {
     
     public func path(for endpoint: Endpoints) -> String {
         switch endpoint {
-        case .fetchWeatherDaily(let location):
-            return "/api/v1/weather/en_US/\(location.latitude)/\(location.longitude)?dataSets=forecastDaily"
-        case .fetchWeatherHourly(let location, let date):
+        case .fetchWeatherDaily(let lat, let lon):
+            return "/api/v1/weather/en_US/\(lat)/\(lon)?dataSets=forecastDaily"
+        case .fetchWeatherHourly(let lat, let lon, let date):
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let dateComponent = dateFormatter.string(from: date)
-            return "/api/v1/weather/en_US/\(location.latitude)/\(location.longitude)?dataSets=forecastHourly&hourlyStart=\(dateComponent)T00:00:00Z&hourlyEnd=\(dateComponent)T23:59:59Z"
+            return "/api/v1/weather/en_US/\(lat)/\(lon)?dataSets=forecastHourly&hourlyStart=\(dateComponent)T00:00:00Z&hourlyEnd=\(dateComponent)T23:59:59Z"
         }
     }
     

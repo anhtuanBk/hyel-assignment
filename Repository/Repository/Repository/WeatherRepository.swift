@@ -10,7 +10,7 @@ import Combine
 import CoreLocation
 
 public protocol WeatherRepository {
-    func fetchDailyWeather(_ location: CLLocationCoordinate2D) -> Future<[Day], Error>
-    func fetchHourlyWeather(_ location: CLLocationCoordinate2D, date: Date) -> Future<[Hour], Error>
+    func fetchDailyWeather(_ lat: Double, _ lon: Double) -> Future<[Day], Error>
+    func fetchHourlyWeather(_ lat: Double, _ lon: Double, date: Date) -> Future<[Hour], Error>
     func clearIfNeeded()
 }

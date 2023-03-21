@@ -24,7 +24,7 @@ class HourlyWeatherViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        weatherUseCase.loadHourlyWeather(location, date: date)
+        weatherUseCase.loadHourlyWeather(location.latitude, location.longitude, date: date)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 self?.isLoading = false
